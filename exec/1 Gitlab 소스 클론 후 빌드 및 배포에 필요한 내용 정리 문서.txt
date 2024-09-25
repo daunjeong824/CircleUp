@@ -1,0 +1,30 @@
+1) 사용한 JVM, 웹서버, WAS 제품 등의 종류와 설정 값, 버전(IDE버전 포함)
+DockerCompose로 웹 서버는 모두 DockerImage 사용
+react + nginx : node14 기반 dockerising후 배포. ( Gitlab 소스 내 dockerfile 첨부 ) - npm run build 후 dockerising(빌드과정이 포함되어있지 않음)
+
+springboot + tomcat : jdk17기반 dockerising후 배포. ( Gitlab 소스 내 dockerfile 첨부 ) - ./gradlew clean build 후 dockerising(빌드과정이 포함되어있지 않음)
+
+kurento/kurento-media-server:7.0.1
+
+openvidu/openvidu-server:2.30.0
+
+openvidu/openvidu-coturn:2.30.0
+
+2) 빌드 시 사용되는 환경 변수
+react .env 환경변수
+VITE_BACKEND_ADDRESS = https://circle-up.site/api
+VITE_AI_ADDRESS = wss://circle-up.site/ws
+JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64/
+MAVEN_HOME: /usr/share/maven
+SPRING_PROFILES_ACTIVE: prod
+
+3) 배포 시 특이사항
+특이사항 없음.
+
+4) DB 접속 정보 등 프로젝트에 활용되는 주요 계정 및 프로퍼티가 정의된 파일 목록
+/backend/src/main/resources/application.properties
+```
+DB URL : jdbc:mariadb://stg-yswa-kr-practice-db-master.mariadb.database.azure.com:3306/
+Username : S11P12A504
+Password : circle
+```

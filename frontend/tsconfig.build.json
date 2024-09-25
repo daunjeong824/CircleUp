@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "noEmit": false,  // ensure that noEmit is not set
+    "allowImportingTsExtensions": false  // this setting should be false or removed
+  },
+  "include": ["src"]
+}

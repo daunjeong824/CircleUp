@@ -1,0 +1,138 @@
+buildscript {
+    ext {
+        springBootVer = '2.4.5'
+        querydslVer = '4.4.0'
+        querydslPluginVer = '1.0.10'
+        springDependencyMgmtVer = '1.0.11'
+        springLoadedVer = '1.2.8'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVer}"
+        classpath "io.spring.gradle:dependency-management-plugin:${springDependencyMgmtVer}.RELEASE"
+        classpath "org.springframework:springloaded:${springLoadedVer}.RELEASE"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'org.springframework.boot' version "${springBootVer}"
+
+    id "org.sonarqube" version "3.0"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "circle"
+        property "sonar.projectName", "circle-up"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.login", "b95b51d5475a5522df32f85897089233dccd1368"
+        property "sonar.projectVersion", "1.0.0"
+    }
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url "https://repo.spring.io/libs-release" }
+    maven { url "https://repo.maven.apache.org/maven2" }
+    maven { url "https://build.shibboleth.net/nexus/content/repositories/releases" }
+}
+
+group 'com.ssafy'
+version '1.0-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    providedRuntime
+}
+
+def buildTime() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd_HHmm')
+    return formattedDate
+}
+
+project.ext.set("build.date", buildTime())
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE")
+    testImplementation("org.springframework.security:spring-security-test")
+    annotationProcessor("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("mysql:mysql-connector-java")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+    implementation('commons-io:commons-io:2.6')
+    implementation("org.apache.commons:commons-collections4:4.4")
+    implementation("org.apache.commons:commons-lang3:3.9")
+
+    implementation("com.querydsl:querydsl-jpa:${querydslVer}")
+    implementation("com.querydsl:querydsl-apt:${querydslVer}")
+
+    implementation("org.springframework.boot:spring-boot-starter-mustache")
+    implementation('org.webjars.bower:jquery:3.3.1')
+    implementation('org.webjars:sockjs-client:1.1.2')
+    implementation('org.webjars:stomp-websocket:2.3.3-1')
+    implementation('org.webjars:webjars-locator:0.30')
+    implementation('org.webjars.bower:webrtc-adapter:7.4.0')
+    implementation('org.kurento:kurento-client:6.16.0')
+    implementation('org.kurento:kurento-utils-js:6.15.0')
+
+    annotationProcessor("com.querydsl:querydsl-apt:${querydslVer}:jpa")
+
+    implementation("com.squareup.retrofit2:retrofit:2.7.1")
+    implementation("com.squareup.retrofit2:converter-jackson:2.7.1")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.9.0")
+
+    implementation("com.google.guava:guava:29.0-jre")
+    annotationProcessor("com.google.guava:guava:29.0-jre")
+
+    testImplementation("com.jayway.jsonpath:json-path:2.4.0")
+
+    implementation("com.auth0:java-jwt:3.10.3")
+
+    implementation("io.springfox:springfox-swagger2:3.0.0")
+    implementation("io.springfox:springfox-swagger-ui:3.0.0")
+    implementation("io.springfox:springfox-data-rest:3.0.0")
+    implementation("io.springfox:springfox-bean-validators:3.0.0")
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
+
+    implementation("javax.annotation:javax.annotation-api:1.2")
+
+    implementation("org.projectlombok:lombok:1.18.20")
+    annotationProcessor("org.projectlombok:lombok:1.18.20")
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.webjars:stomp-websocket:2.3.4'
+
+    // 새로 추가된 JWT 관련 의존성
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // Google Cloud Service 이용 관련
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-starter', version: '1.2.5.RELEASE'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-storage', version: '1.2.5.RELEASE'
+
+    // Openvidu
+    implementation group: 'io.openvidu', name: 'openvidu-java-client', version: '2.30.0'
+}
+
+test {
+    useJUnitPlatform()
+}

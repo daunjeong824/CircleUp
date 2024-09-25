@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* color: white; */
+}
+
+@font-face {
+    font-family: "GowunDodum-R";
+    font-weight: normal;
+    src: url("./assets/fonts/NanumSquareRoundR.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "GowunDodum-B";
+    font-weight: normal;
+    src: url("./assets/fonts/NanumSquareRoundB.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Gothic-B";
+    font-weight: normal;
+    src: url("./assets/fonts/NanumBarunGothicBold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Gothic-R";
+    font-weight: normal;
+    src: url("./assets/fonts/NanumBarunGothic.ttf") format("truetype");
+}
+
+body {
+    font-family: "GowunDodum-R";
+}
+
+.title {
+    font-family: "GowunDodum-B";
+}
+
+.GD {
+    font-family: "Gothic-R";
+}
+
+.GDtitle {
+    font-family: "Gothic-B";
+}
